@@ -84,7 +84,8 @@ class GymEnv(object):
     def reset(self, seed=None):
         try:
             self.env._elapsed_steps = 0
-            return self.env.unwrapped.reset_model(seed=seed)
+            unwrapped = self.env.unwrapped
+            return unwrapped.reset_model(seed=seed)
         except:
             if seed is not None:
                 self.set_seed(seed)

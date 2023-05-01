@@ -113,13 +113,13 @@ class BC:
         obs = self.encodefn(obs, finetune=self.finetune)
         act_expert = data['expert_actions'][idx]
         if type(obs) is not torch.Tensor:
-            obs = Variable(torch.from_numpy(obs).float(), requires_grad=False).cuda()
+            obs = Variable(torch.from_numpy(obs).float(), requires_grad=False).cpu() #.cuda()
 
         ## Concatenate proprioceptive data
         if self.proprio:
             proprio= data['proprio'][idx]
             if type(proprio) is not torch.Tensor:
-                proprio = Variable(torch.from_numpy(proprio).float(), requires_grad=False).cuda()
+                proprio = Variable(torch.from_numpy(proprio).float(), requires_grad=False).cpu() #.cuda()
             obs = torch.cat([obs, proprio], -1)
         if type(act_expert) is not torch.Tensor:
             act_expert = Variable(torch.from_numpy(act_expert).float(), requires_grad=False)
